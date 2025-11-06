@@ -22,16 +22,16 @@
     (
       [#i.],
       text(
-        font: "SimHei",
+        font: "LXGW ZhenKai GB",
         size: 11pt,
         标题) + h(1em) +
       text(
-        font: "FangSong",
+        font: "LXGW WenKai",
         size: 10pt,
         box([[#朝代] #作者])
       ),
       text(
-        font: "FangSong",
+        font: "LXGW WenKai",
         size: 11pt,
         内容
       )
