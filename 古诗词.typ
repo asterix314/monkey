@@ -12,28 +12,28 @@
 #let i = 1
 // 创建表格
 #table(
-  columns: (1em, 11em, 1fr),
+  columns: (1em, 1fr),
   stroke: (x: none, y: 0.5pt),
   align: (
-    right + horizon, 
-    left + horizon, 
+    right + top, 
     left + horizon),
   ..for (标题, 朝代, 作者, 内容) in data.古诗 {
     (
       [#i.],
       text(
-        font: "LXGW ZhenKai GB",
+        font: "Microsoft YaHei",
         size: 11pt,
-        标题) + h(1em) +
+        标题) + h(5pt) +
+      text(
+        font: "Microsoft YaHei",
+        weight: "light",
+        size: 10pt,
+        box([[#朝代] #作者 /])
+      ) +
       text(
         font: "LXGW WenKai",
         size: 10pt,
-        box([[#朝代] #作者])
-      ),
-      text(
-        font: "LXGW WenKai",
-        size: 11pt,
-        内容
+        h(5pt) + 内容
       )
     )
   i = i + 1
