@@ -55,14 +55,22 @@
       image("xhs.svg", width: 100%), 
       fill: red, 
       height: 20pt,
-      width: 40pt,
-      inset: 1pt,
+      width: 46pt,
+      inset: 2pt,
       baseline: 5pt,
       radius: 6pt,
     ) + [ | 奇宝爹]
     h(1fr)
     [拼读表压缩版]
   },
+  background: rotate(
+    24deg, 
+    text(
+      size: 140pt,
+//      weight: "bold",
+      fill: red.lighten(70%), 
+      font: "Microsoft YaHei")[*SAMPLE\ 样例*]
+  )
 )
 
 #show heading.where(level: 2): set align(center)
@@ -245,4 +253,3 @@ hl[uang], [shuǎnɡ], [zhuānɡ]
 #普通列表(
   hl[uan], [quǎn], [xuàn],[juàn]
 )
-
