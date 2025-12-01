@@ -1,4 +1,5 @@
 #import "@preview/easy-pinyin:0.1.0": pinyin, zhuyin
+#import "@preview/colorful-boxes:1.4.3": stickybox
 
 #let 注音 = zhuyin.with(
   delimiter: "|", 
@@ -63,14 +64,14 @@
     h(1fr)
     [拼读表压缩版]
   },
-  background: rotate(
-    24deg, 
-    text(
-      size: 140pt,
-//      weight: "bold",
-      fill: red.lighten(70%), 
-      font: "Microsoft YaHei")[*SAMPLE\ 样例*]
-  )
+  // background: rotate(
+  //   24deg, 
+  //   text(
+  //     size: 140pt,
+  //     weight: "bold",
+  //     fill: red.lighten(70%), 
+  //     font: "Microsoft YaHei")[*SAMPLE\ 样例*]
+  // )
 )
 
 #show heading.where(level: 2): set align(center)
@@ -159,7 +160,14 @@
   [xū], [xú], [xǔ], [xù]
 )
 
-#注音[小|ü|有|礼|貌|，|见|到|j、q、x|就|脱|帽|。][xia3o||yo3u|li3|ma4o||jia4n|da4o||jiu4|tuo1|ma4o|]
+#align(center,
+  stickybox(
+    rotation: -3deg,
+    width: 10cm,
+    tape: false,
+    注音[小|ü|有|礼|貌|，|见|到|j、q、x|就|脱|帽|。][xia3o||yo3u|li3|ma4o||jia4n|da4o||jiu4|tuo1|ma4o|]
+  )
+)
 
 == #注音[拼|读|表|五|：z、c、s][pi1n|du2|bia3o|wu3|]
 
