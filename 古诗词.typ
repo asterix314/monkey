@@ -1,8 +1,9 @@
 #set page(
   "a4",
   margin: (
-    top: 5em,
-    bottom: 2em, left: 4em, right: 4em,),
+    top: 3em,
+    bottom: 2em, 
+    x: 3em,),
   flipped: true,
   columns: 2
 )
