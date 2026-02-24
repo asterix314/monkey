@@ -30,44 +30,63 @@
     table(
       columns: (1fr),
       inset: 2pt,
-      stroke: (_, y) => if y > 0 {(bottom: (paint: gray, thickness: 0.6pt, dash: "dotted"))},
-      text(16pt, font: "Playwrite NZ Basic Guides", sentences)
-      + h(2em) + text(16pt, font: "Playwrite NZ Basic", weight: "light", words),
-      v(1em),v(2.5pt),v(3.5pt),v(2.5pt)
+      stroke: (_, y) => if y == 1 or y == 4 {
+        (bottom: (paint: gray, thickness: 0.6pt))
+      } else if y > 0 {
+        (bottom: (paint: gray, thickness: 0.6pt, dash: "dotted"))
+      },
+      text(24pt, font: "Playwrite NZ Basic Guides", sentences)
+      + h(1em) + text(24pt, font: "Playwrite NZ Basic", weight: "light", words),
+      v(1em),v(.7em),v(0.8em),v(.7em)
     )
   )
 }
 
-#scribe[I dream about space. I dream about monkeys.][space dream about]
+#scribe[I dream about space. I dream about monkeys.][]
 
-#scribe[I dream about robots. I dream about super powers.][monkey robot]
+#scribe[I dream about robots.][monkey robot good sleep]
 
-#scribe[I dream about food. I dream about sports.][robot food sport power]
+#scribe[I dream about super powers.][space monster]
 
-#scribe[I dream about monsters. I dream about good sleep.][monster good]
+#scribe[I dream about food. I dream about sports.][robot]
 
-#scribe[This face is happy. This face is sad.][happy sad super power sleep]
+#scribe[I dream about monsters.][food sport super power]
 
-#scribe[This face is sorry. This face is excited.][scared sorry mad sport]
+#scribe[I dream about good sleep.][good happy sad]
 
-#scribe[This face is scared. This face is shy. This face is mad.][sad shy]
+#scribe[This face is happy. This face is sad.][super power]
 
-#scribe[This face is sleepy.][scared shy sleepy sorry scared excited mad]
+#scribe[This face is sorry. This face is excited.][scared]
 
-#scribe[Racoon is awake. Racoon is hungry. Racoon is smart.][sleepy sad]
+#scribe[This face is scared. This face is shy.][sorry mad]
 
+#scribe[This face is mad.][sad scared excited sleepy about]
 
-#scribe[Racoon is messy. Racoon is sneaky. Racoon is full.][awake hungry]
+#scribe[This face is sleepy.][shy sorry sport monster]
 
-#scribe[Racoon is sleepy. Racoon is cute.][messy sneaky full scared happy]
+#scribe[Racoon is awake. Racoon is hungry.][power food]
 
-#scribe[This is a potato. This is broccoli. This is lettuce. This is corn.][mad]
+#scribe[Racoon is smart.][monkey robot sleepy sorry]
 
-#scribe[This is a chile pepper. This is cabbage. These are carrots.][face full]
+#scribe[Racoon is messy. Racoon is sneaky.][smart happy]
 
-#scribe[These are vegetables.][broccoli lettuce cabbage potato carrot corn]
+#scribe[Racoon is full.][awake hungry messy sneaky shy]
 
-#scribe[This is my eye. This is my eyebrow. This is my ear.][eye ear potato]
+#scribe[Racoon is sleepy. Racoon is cute.][full scared]
+
+#scribe[This is a potato. This is broccoli.][cute awake]
+
+#scribe[This is lettuce. This is corn.][mad potato messy]
+
+#scribe[This is a chile pepper. This is cabbage.][scared]
+
+#scribe[These are carrots.][face full broccoli lettuce]
+
+#scribe[These are vegetables.][cabbage potato carrot]
+
+#scribe[This is my eye. This is my eyebrow.][cute corn]
+
+#scribe[This is my ear.][sleepy eye awake smart hungry]
 
 #scribe[This is my cheek. This is my nose. This is my mouth.][vegetables]
 
@@ -107,5 +126,18 @@
 
 #scribe[This is my head. This is my body.][chest hand eye vegetables fun]
 
+#scribe[I smell turkey. I smell stuffing. I smell rolls. I smell yams][foot leg]
 
+#scribe[I smell potatoes. I smell gravy. I smell pie. I smell Thanksgiving!][]
 
+#scribe[I can run. I can jump. I can swing. I can hop. I can ride.][belly]
+
+#scribe[I can climb. I can crawl. I can play.][head turkey body stuffing]
+
+#scribe[Dogs make me happy. Cats make me happy.][sock roll hand]
+
+#scribe[Bubbles make me happy. Trains make me happy.][gravy pie put on]
+
+#scribe[Swings make me happy. Flowers make me happy.][run smell golf]
+
+#scribe[Books make me happy. Friends make me happy.][Thanksgiving]

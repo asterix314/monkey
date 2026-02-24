@@ -140,6 +140,6 @@
     align: center,
     stroke: 0.5pt,
     inset: 12pt,
-    ..exercises(150)
+    ..exercises(90)
   )
 }

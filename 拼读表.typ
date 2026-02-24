@@ -160,14 +160,16 @@
   [xū], [xú], [xǔ], [xù]
 )
 
-#align(center,
-  stickybox(
-    rotation: -3deg,
-    width: 10cm,
-    tape: false,
-    注音[小|ü|有|礼|貌|，|见|到|j、q、x|就|脱|帽|。][xia3o||yo3u|li3|ma4o||jia4n|da4o||jiu4|tuo1|ma4o|]
-  )
-)
+#注音[小|ü|有|礼|貌|，|见|到|j、q、x|就|脱|帽|。][xia3o||yo3u|li3|ma4o||jia4n|da4o||jiu4|tuo1|ma4o|]
+
+// #align(center,
+//   stickybox(
+//     rotation: -3deg,
+//     width: 10cm,
+//     tape: false,
+//     注音[小|ü|有|礼|貌|，|见|到|j、q、x|就|脱|帽|。][xia3o||yo3u|li3|ma4o||jia4n|da4o||jiu4|tuo1|ma4o|]
+//   )
+// )
 
 == #注音[拼|读|表|五|：z、c、s][pi1n|du2|bia3o|wu3|]
 
@@ -175,7 +177,7 @@
   [zā], [zá], [zǎ], [],
   [],   [zé], [],   [zè],
   [zū], [zú], [zǔ], [],
-  [cā], [],   [cǎ], [],
+  [cā], [],   [],   [],
   [],   [],   [],   [cè],
   [cū], [cú], [],   [cù],
   [sā], [],   [sǎ], [sà],
