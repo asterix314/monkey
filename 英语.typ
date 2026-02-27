@@ -1,7 +1,7 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 3em),
+  margin: (x: 1cm, bottom: 2cm),
   header: {
     set text(font: "YouYuan", size: 14pt)
     (
@@ -19,125 +19,170 @@
     h(1fr)
     [英文抄写练习]
   },
+  background: place(top + center, dy: 1.2em,
+    table(
+      columns: (19cm),
+      inset: 0pt,
+      stroke: (_, y) => 
+      if calc.rem(y, 4) == 0 or calc.rem(y, 4) == 3 {
+        (bottom: (paint: gray, thickness: 0.6pt))
+      } else {
+        (bottom: (paint: gray, thickness: 0.6pt, dash:"dashed"))
+      },
+      ..6 * (v(87pt), v(.37em), v(.51em), v(.37em))
+    )
+  ),
   footer: context {
     set text(font: "Segoe Script", size: 14pt)
     align(center)[-- #counter(page).display() --]
   },
 )
 
-#let scribe(sentences, words) = {
-  block(breakable: false,
-    table(
-      columns: (1fr),
-      inset: 2pt,
-      stroke: (_, y) => if y == 1 or y == 4 {
-        (bottom: (paint: gray, thickness: 0.6pt))
-      } else if y > 0 {
-        (bottom: (paint: gray, thickness: 0.6pt, dash: "dotted"))
-      },
-      text(24pt, font: "Playwrite NZ Basic Guides", sentences)
-      + h(1em) + text(24pt, font: "Playwrite NZ Basic", weight: "light", words),
-      v(1em),v(.7em),v(0.8em),v(.7em)
-    )
-  )
-}
+#set text(24pt, font: "Playwrite NZ Basic Guides")
+#set par(justify: false, leading: 4em, spacing: 4em)
 
-#scribe[I dream about space. I dream about monkeys.][]
+#let vocab = text.with(24pt, font: "Playwrite NZ Basic", weight: "light")
 
-#scribe[I dream about robots.][monkey robot good sleep]
 
-#scribe[I dream about super powers.][space monster]
+I dream about space. 
+I dream about monkeys. 
+I dream about robots. 
+I dream about super powers.
+I dream about food. 
+I dream about sports.
+I dream about monsters.
+I dream about good sleep.
 
-#scribe[I dream about food. I dream about sports.][robot]
+#vocab[space monkey robot super power food sport monster good sleep]
 
-#scribe[I dream about monsters.][food sport super power]
+This face is happy. 
+This face is sad.
+This face is sorry.
+This face is excited.
+This face is scared. 
+This face is shy.
+This face is mad.
+This face is sleepy.
 
-#scribe[I dream about good sleep.][good happy sad]
+#vocab[happy sad sorry excited scared shy mad sleepy]
 
-#scribe[This face is happy. This face is sad.][super power]
+Racoon is awake. 
+Racoon is hungry.
+Racoon is smart.
+Racoon is messy. 
+Racoon is sneaky.
+Racoon is full.
+Racoon is sleepy. 
+Racoon is cute.
 
-#scribe[This face is sorry. This face is excited.][scared]
+#vocab[awake hungry smart messy sneaky full sleepy cute]
 
-#scribe[This face is scared. This face is shy.][sorry mad]
+This is a potato.
+This is broccoli.
+This is lettuce. 
+This is corn.
+This is a chile pepper. 
+This is cabbage.
+These are carrots.
+These are vegetables.
 
-#scribe[This face is mad.][sad scared excited sleepy about]
+#vocab[potato broccoli lettuce corn chile pepper cabbage carrot vegetable]
 
-#scribe[This face is sleepy.][shy sorry sport monster]
+This is my eye. 
+This is my eyebrow.
+This is my ear.
+This is my cheek. 
+This is my nose. 
+This is my mouth.
+This is my chin. 
+This is my face.
 
-#scribe[Racoon is awake. Racoon is hungry.][power food]
+#vocab[eye eyebrow ear cheek nose mouth chin face]
 
-#scribe[Racoon is smart.][monkey robot sleepy sorry]
+This room is clean. 
+This room is not clean.
+This shoe is clean. 
+This shoe is not clean. 
+This hand is clean.
+This hand is not clean. 
+This food is clean.
+This food is not clean.
 
-#scribe[Racoon is messy. Racoon is sneaky.][smart happy]
+#vocab[room shoe hand food]
 
-#scribe[Racoon is full.][awake hungry messy sneaky shy]
+Some grandparents cook.
+Some grandparents swim. 
+Some grandparents hike.
+Some grandparents golf. 
+Some grandparents sew.
+Some grandparents garden. 
+Some grandparents paint.
+Some grandparents read.
 
-#scribe[Racoon is sleepy. Racoon is cute.][full scared]
+#vocab[cook swim hike golf sew garden paint read]
 
-#scribe[This is a potato. This is broccoli.][cute awake]
+I can skate fast. 
+I can skate slow.
+I can skate forward.
+I can skate backward.
+I can spin. 
+I can jump. 
+I can fall.
+I can have fun.
 
-#scribe[This is lettuce. This is corn.][mad potato messy]
+#vocab[fast slow forward backward spin jump fall fun]
 
-#scribe[This is a chile pepper. This is cabbage.][scared]
+I put on my shirt. 
+I put on my pants. 
+I put on my belt.
+I put on my socks. 
+I put on my shoes. 
+I put on my glasses.
+I put on my jacket. 
+I put on my backpack.
 
-#scribe[These are carrots.][face full broccoli lettuce]
+#vocab[shirt pants belt sock shoe glass jacket backpack]
 
-#scribe[These are vegetables.][cabbage potato carrot]
+This is my foot.
+This is my leg. 
+This is my belly.
+This is my chest. 
+This is my hand. 
+This is my arm.
+This is my head. 
+This is my body.
 
-#scribe[This is my eye. This is my eyebrow.][cute corn]
+#vocab[foot leg belly chest hand arm head body]
 
-#scribe[This is my ear.][sleepy eye awake smart hungry]
+I smell turkey. 
+I smell stuffing. 
+I smell rolls. 
+I smell yams.
+I smell potatoes. 
+I smell gravy. 
+I smell pie. 
+I smell Thanksgiving!
 
-#scribe[This is my cheek. This is my nose. This is my mouth.][vegetables]
+#vocab[turkey stuffing rolls yam potato gravy pie Thanksgiving]
 
-#scribe[This is my chin. This is my face.][eyebrow nose mouth chin cheek]
+I can run. 
+I can jump. 
+I can swing. 
+I can hop. 
+I can ride.
+I can climb. 
+I can crawl. 
+I can play.
 
-#scribe[This room is clean. This room is not clean.][shoe ear eye mouth]
+#vocab[run jump swing hop ride climb crawl play]
 
-#scribe[This shoe is clean. This shoe is not clean. This hand is clean.][sad]
+Dogs make me happy. 
+Cats make me happy.
+Bubbles make me happy. 
+Trains make me happy.
+Swings make me happy. 
+Flowers make me happy.
+Books make me happy. 
+Friends make me happy.
 
-#scribe[This hand is not clean. This food is clean.][hand food chile pepper]
-
-#scribe[This food is not clean. Some grandparents cook.][swim hike room]
-
-#scribe[Some grandparents swim. Some grandparents hike.][lettuce food]
-
-#scribe[Some grandparents golf. Some grandparents sew.][clean nose eye]
-
-#scribe[Some grandparents garden. Some grandparents paint.][cook corn]
-
-#scribe[Some grandparents read.][golf sew garden paint read happy space]
-
-#scribe[I can skate fast. I can skate slow. I can skate forward.][read clean]
-
-#scribe[I can skate backward. I can spin. I can jump. I can fall.][fast cheek]
-
-#scribe[I can have fun.][slow forward backward spin jump fall fun racoon]
-
-#scribe[I put on my shirt. I put on my pants. I put on my belt.][shirt paint]
-
-#scribe[I put on my socks. I put on my shoes. I put on my glasses.][scared]
-
-#scribe[I put on my jacket. I put on my backpack.][pants belt sock broccoli]
-
-#scribe[This is my foot. This is my leg. This is my belly.][jacket shoe skate]
-
-#scribe[This is my chest. This is my hand. This is my arm.][foot leg face]
-
-#scribe[This is my head. This is my body.][chest hand eye vegetables fun]
-
-#scribe[I smell turkey. I smell stuffing. I smell rolls. I smell yams][foot leg]
-
-#scribe[I smell potatoes. I smell gravy. I smell pie. I smell Thanksgiving!][]
-
-#scribe[I can run. I can jump. I can swing. I can hop. I can ride.][belly]
-
-#scribe[I can climb. I can crawl. I can play.][head turkey body stuffing]
-
-#scribe[Dogs make me happy. Cats make me happy.][sock roll hand]
-
-#scribe[Bubbles make me happy. Trains make me happy.][gravy pie put on]
-
-#scribe[Swings make me happy. Flowers make me happy.][run smell golf]
-
-#scribe[Books make me happy. Friends make me happy.][Thanksgiving]
+#vocab[dog cat bubble train swing flower book friend]
