@@ -11,7 +11,7 @@
         width: 100pt,
         baseline: 12pt,
       )
-        + [ | CVC练习]
+        + [ | 英文书写练习]
     )
     h(1fr)
     [日期：#underline[2026 - ~~~~~~]]
@@ -47,17 +47,12 @@
 #show heading: set text(size: 20pt)
 #show heading: set block(below: 2em)
 
-= 抄写
 
-#guided[jam] #h(1fr) jam #h(1fr) jam #h(1fr) #guided[dad] #h(1fr) dad #h(1fr) dad
-
-#guides
-
-#guided[mad] #h(1fr) mad #h(1fr) mad #h(1fr) #guided[sad] #h(1fr) sad #h(1fr) sad 
+#guided[hen] #h(1fr) hen #h(1fr) #guided[ten] #h(1fr) ten #h(1fr) #guided[bed] #h(1fr) bed
 
 #guides
 
-= 听写
+#guided[red] #h(1fr) red #h(1fr) #guided[leg] #h(1fr) leg #h(1fr) #guided[get] #h(1fr) get
 
 #guides
 
@@ -65,15 +60,17 @@
 
 #guides
 
+#guided[jam] #h(1fr) jam #h(1fr) #guided[dad] #h(1fr) dad #h(1fr) #guided[mad] #h(1fr) mad
+
+#guides
+
+#guided[sad] #h(1fr) sad #h(1fr) #guided[cat] #h(1fr) cat #h(1fr) #guided[fat] #h(1fr) fat
+
 #guides
 
 #guides
 
 #guides
-
-= 抄写
-
-#guided[cat] #h(1fr) cat #h(1fr) cat #h(1fr) #guided[fat] #h(1fr) fat #h(1fr) fat
 
 #guides
 
@@ -81,7 +78,33 @@
 
 #guides
 
-= 听写
+#guided[van] #h(1fr) van #h(1fr) #guided[lap] #h(1fr) lap #h(1fr) #guided[nap] #h(1fr) nap
+
+#guides
+
+#guides
+
+#guides
+
+#guides
+
+#guided[tab] #h(1fr) tab #h(1fr) #guided[cab] #h(1fr) cab #h(1fr) #guided[kid] #h(1fr) kid
+
+#guides
+
+#guided[ran] #h(1fr) ran #h(1fr) #guided[lab] #h(1fr) lab #h(1fr) #guided[mag] #h(1fr) mag
+
+#guides
+
+#guides
+
+#guides
+
+#guided[beg] #h(1fr) beg #h(1fr) #guided[egg] #h(1fr) egg #h(1fr) #guided[jet] #h(1fr) jet
+
+#guides
+
+#guided[wet] #h(1fr) wet #h(1fr) #guided[less] #h(1fr) less #h(1fr) #guided[mess] #h(1fr) mess
 
 #guides
 
@@ -97,7 +120,7 @@
 
 #guides
 
-#guides
+The #h(1fr) egg #h(1fr) has #h(1fr) ten #h(1fr) legs.
 
 #guides
 
@@ -107,25 +130,7 @@
 
 #guides
 
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
-
-#guides
+The #h(1fr) man #h(1fr) ran #h(1fr) to #h(1fr) the #h(1fr) van.
 
 #guides
 
