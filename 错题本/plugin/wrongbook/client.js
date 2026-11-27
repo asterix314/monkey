@@ -33,7 +33,7 @@ window.__ModuleLoader__.load({
     // 主题缺失时宁可无色，也不要落回硬编码色（那会让暗色主题失效）。
     // token 名逐个核对过 @deepseek-ai/dsh-client-ui-theme 的 design_platform_css_default。
     const CSS = `
-      .wb-page { padding: 24px; max-width: 880px; margin: 0 auto; font-size: 14px; color: var(--dsw-alias-label-primary); }
+      .wb-page { box-sizing: border-box; flex: 1 1 auto; min-height: 0; width: 100%; max-width: 880px; margin: 0 auto; padding: 24px; overflow-y: auto; overflow-x: hidden; font-size: 14px; color: var(--dsw-alias-label-primary); }
       .wb-title { font-size: 20px; font-weight: 600; margin: 0 0 4px; color: var(--dsw-alias-label-primary); }
       .wb-sub { margin: 0 0 20px; color: var(--dsw-alias-label-tertiary); }
       .wb-card { border: 1px solid var(--dsw-alias-border-l2); border-radius: 10px; padding: 16px; margin-bottom: 16px; background: var(--dsw-alias-bg-layer-2); }
