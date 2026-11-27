@@ -1,0 +1,46 @@
+{
+  "name": "dsh-wrongbook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "错题本：把手机拍摄的试卷归档到本地，生成标准化图片，按学期和科目浏览。",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./config": "./config.js",
+    "./archive-store": "./archive-store.js",
+    "./image-probe": "./image-probe.js",
+    "./import-service": "./import-service.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "icon": "./icon.svg",
+  "files": [
+    "index.js",
+    "client.js",
+    "config.js",
+    "archive-store.js",
+    "image-probe.js",
+    "import-service.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dependencies": {
+    "pg": "^8.13.1",
+    "zod": "^4.6.7"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    }
+  }
+}

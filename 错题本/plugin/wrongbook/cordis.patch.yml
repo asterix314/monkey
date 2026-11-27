@@ -1,0 +1,13 @@
+# dsh-wrongbook：Host 一个插件行 + Client 一个页面。
+#
+# Host 半边注册业务服务（数据库连接、导入、图库读取）并暴露 HTTP 路由；
+# Client 半边在侧栏加入口、在主区域渲染 React 页面（不是 iframe）。
+#
+# config 必须显式给出空对象：插件导出了 export const Config（zod schema），
+# Cordis 激活时用它对这一行做校验；缺省 config 会传 undefined，
+# 触发 "Invalid input: expected object, received undefined" 而整行不激活。
+# 这里留空对象，所有字段走 schema 里的 .default()，即与实测环境一致。
+- insert:
+    - id: wrongbook
+      name: 'dsh-wrongbook'
+      config: {}

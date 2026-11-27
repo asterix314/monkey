@@ -1,0 +1,39 @@
+# 错题本项目 · 排除依赖与运行时产物
+#
+# 注意：本文件位于 错题本/ 目录内部，规则中的路径**相对于 错题本/**，
+# 不要再写 `错题本/` 前缀——那样会一条都匹配不上。
+
+# ---- 依赖（可由 package.json / package-lock.json 重建）----
+node_modules/
+plugin/wrongbook/node_modules/
+
+# ---- npm 缓存（本地加速用，非项目内容）----
+.npm-cache/
+
+# ---- DSH 临时工作目录（调试脚本、临时截图等）----
+.dsh-tmp/
+
+# ---- 测试日志（每次运行重新生成）----
+tests/logs/
+
+# ---- 所有 PNG（用户决定不入库，2026-11-27）----
+# 包括调试截图、孤儿测试图；将来若有必须入库的图片，用 ! 单独放行
+*.png
+
+# ---- 临时分析文件 ----
+*.tmp
+.calib*.txt
+.tokens.json
+.token-rows.json
+.st.json
+
+# ---- 系统与编辑器 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# ---- Python ----
+__pycache__/
+*.pyc

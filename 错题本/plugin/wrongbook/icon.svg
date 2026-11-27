@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Wrongbook">
+  <rect width="64" height="64" rx="14" fill="#2f6f4e"/>
+  <path d="M15 18.5A2.5 2.5 0 0 1 17.5 16H31v32H17.5A2.5 2.5 0 0 1 15 45.5z" fill="#f4f1e8"/>
+  <path d="M31 16h15.5A2.5 2.5 0 0 1 49 18.5v27a2.5 2.5 0 0 1-2.5 2.5H31z" fill="#e8e3d5"/>
+  <path d="M31 16v32" stroke="#2f6f4e" stroke-width="1.6"/>
+  <path d="M36 31l4.5 4.5L49 27" fill="none" stroke="#c8452f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 24h6M20 30h6M20 36h6" stroke="#9aa79f" stroke-width="2" stroke-linecap="round"/>
+</svg>
