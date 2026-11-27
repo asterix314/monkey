@@ -92,6 +92,47 @@ window.__ModuleLoader__.load({
       .wb-summary { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 13px; }
       .wb-summary-item { font-variant-numeric: tabular-nums; }
       .wb-err-detail { font-size: 11px; color: var(--dsw-alias-label-tertiary); word-break: break-all; }
+
+      /* ---- 第 6 步：待整理 / 人工归组 / 页面图库 ------------------------- */
+      /* 列表项整体做成 <button>（而不是 div + 内部按钮）：键盘可达、语义正确，
+         也避免「点整条」和「点里面的按钮」互相抢事件。所以这里要显式清掉
+         原生按钮的字体与外观，否则会跟周围的文字排版不一致。 */
+      .wb-pending-list, .wb-page-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+      .wb-pending-item, .wb-page-row { display: flex; align-items: center; gap: 10px; width: 100%; appearance: none; text-align: left; font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; padding: 8px 10px; background: var(--dsw-alias-bg-layer-1); }
+      .wb-pending-item:hover, .wb-page-row:hover { background: var(--dsw-alias-interactive-bg-hover); }
+      /* 选中态用边框色 + 内阴影两层标记：只换背景色在暗色主题下不够明显，
+         用户会分不清「悬停」和「已选中」。 */
+      .wb-pending-item-active, .wb-page-row-active { border-color: var(--dsw-alias-button-primary-fill); background: var(--dsw-alias-interactive-bg-hover); box-shadow: inset 0 0 0 1px var(--dsw-alias-button-primary-fill); }
+      .wb-thumb { flex: 0 0 auto; width: 64px; height: 64px; object-fit: cover; border-radius: 6px; display: block; background: var(--dsw-alias-bg-skeleton); }
+      /* 小尺寸缩略图放不下「原件无法加载…」整句和 URL，所以裁掉 URL 只留一句短提示；
+         大图（并排比较）仍用完整说明，因为那里有空间、也需要能核对路径。 */
+      .wb-thumb-missing { width: 64px; height: 64px; min-height: 0; padding: 4px; overflow: hidden; font-size: 10px; }
+      .wb-thumb-missing .wb-img-url { display: none; }
+      .wb-detail-missing { width: 48px; height: 48px; min-height: 0; padding: 2px; overflow: hidden; font-size: 9px; }
+      .wb-detail-missing .wb-img-url { display: none; }
+      .wb-pane-missing { width: 100%; height: 200px; min-height: 0; font-size: 12px; overflow: hidden; }
+      .wb-thumb-empty { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--dsw-alias-label-tertiary); text-align: center; }
+      .wb-item-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+      .wb-item-title { font-size: 12px; font-weight: 600; word-break: break-all; }
+      .wb-item-meta { font-size: 11px; color: var(--dsw-alias-label-tertiary); word-break: break-all; }
+      .wb-cover-tag { font-size: 11px; color: var(--dsw-alias-state-warn-primary); }
+      /* 左右并排，但窄容器（侧栏收窄、小窗口）自动堆成上下：强行 1fr 1fr
+         会把两张图挤到只剩几十像素，反而看不出是不是同一页。 */
+      .wb-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
+      .wb-pane { min-width: 0; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; padding: 10px; background: var(--dsw-alias-bg-layer-1); }
+      .wb-pane-title { margin: 0 0 8px; font-size: 12px; color: var(--dsw-alias-label-tertiary); }
+      /* 归组比较必须看全整页，不能像缩略图那样裁切：cover 会切掉边角，
+         而「是不是同一页」恰恰靠边角的版式来判断。 */
+      .wb-pane-img { display: block; width: 100%; height: 200px; object-fit: contain; border-radius: 6px; background: var(--dsw-alias-bg-skeleton); }
+      .wb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .wb-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-top: 14px; }
+      .wb-input { appearance: auto; border: 1px solid var(--dsw-alias-border-l3); background: var(--dsw-alias-bg-layer-1); color: var(--dsw-alias-label-primary); border-radius: 8px; padding: 6px 8px; font-size: 13px; min-width: 180px; max-width: 100%; }
+      .wb-btn-sm { padding: 4px 10px; font-size: 12px; }
+      .wb-page-card { display: flex; flex-direction: column; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; overflow: hidden; background: var(--dsw-alias-bg-layer-1); }
+      .wb-detail { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--dsw-alias-border-l2); }
+      .wb-detail-item { display: flex; align-items: center; gap: 8px; }
+      .wb-detail-thumb { flex: 0 0 auto; width: 48px; height: 48px; object-fit: cover; border-radius: 4px; display: block; background: var(--dsw-alias-bg-skeleton); }
+      .wb-group-notice { display: block; margin-bottom: 16px; padding: 8px 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; background: var(--dsw-alias-bg-layer-1); font-size: 13px; word-break: break-all; }
     `
 
     // ---- 数据获取 --------------------------------------------------------
@@ -138,6 +179,66 @@ window.__ModuleLoader__.load({
         code: `HTTP_${response.status}`,
         message: `HTTP ${response.status} ${response.statusText}`,
         retryable: false,
+      }
+    }
+
+    /**
+     * POST JSON 到 Host，**成功和失败都不抛错**，一律返回 `{ok:true, body}` 或
+     * `{ok:false, error:{code,message,retryable,extra}}`。
+     *
+     * 为什么不复用 getJson 的 throw 风格：归组三个动作（创建页 / 附加 / 换首选）
+     * 的失败里有一种是**业务状态**而非异常 —— CAPTURE_ALREADY_GROUPED 带着
+     * `extra.pageId`，UI 要拿它告诉用户「这张已经属于某个页面」并刷新列表。
+     * 如果走 throw，那个 pageId 只能塞进 Error 的自定义属性，调用方每处都要
+     * 再解析一遍，容易漏掉 extra 而把 409 显示成一句无信息量的失败。
+     */
+    async function postJson(path, body) {
+      try {
+        const response = await fetch(`${API}${path}`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify(body),
+        })
+        // 只读一次 body（用 text 再自己 JSON.parse），而不是先 clone 再交给
+        // parseFailure：clone 在部分旧浏览器上有已知的流问题，而这里本来就要
+        // 从同一个 envelope 里同时取 code/message 和 extra。
+        const raw = await response.text()
+        let payload = null
+        try {
+          payload = raw === '' ? null : JSON.parse(raw)
+        } catch {
+          payload = null
+        }
+        const envelope = payload && payload.error && typeof payload.error === 'object' ? payload.error : null
+        const extra = envelope && envelope.extra && typeof envelope.extra === 'object' ? envelope.extra : null
+
+        if (!response.ok || !payload || payload.ok !== true) {
+          return {
+            ok: false,
+            error: {
+              code: envelope && typeof envelope.code === 'string'
+                ? envelope.code
+                : `HTTP_${response.status}`,
+              message: envelope && typeof envelope.message === 'string' && envelope.message !== ''
+                ? envelope.message
+                : `HTTP ${response.status} ${response.statusText}`,
+              retryable: Boolean(envelope && envelope.retryable === true),
+              extra,
+            },
+          }
+        }
+        return { ok: true, body: payload }
+      } catch (error) {
+        return {
+          ok: false,
+          error: {
+            code: 'NETWORK_ERROR',
+            message: `请求失败：${error.message}`,
+            retryable: true,
+            extra: null,
+          },
+        }
       }
     }
 
@@ -245,8 +346,15 @@ window.__ModuleLoader__.load({
       }, [props.src])
 
       if (failed) {
-        return h('div', { className: props.errorClassName || 'wb-img-missing' },
-          h('span', { className: 'wb-err' }, '原件无法加载（归档文件可能已被移动或删除）'),
+        // 小尺寸缩略图（64px/48px）放不下完整句子，调用方可以传更短的 errorText；
+        // 不传时保持原来的完整说明，避免大图上信息量下降。
+        //
+        // errorTag 默认 div；缩略图在 <button> 里（列表整条可点）时调用方传 'span'，
+        // 因为 button 的内容模型只允许 phrasing content —— 塞 div 浏览器照样能画，
+        // 但那是无效 HTML，读屏与某些表单行为会跟着变得不可预期。
+        const wrapper = props.errorTag || 'div'
+        return h(wrapper, { className: props.errorClassName || 'wb-img-missing' },
+          h('span', { className: 'wb-err' }, props.errorText || '原件无法加载（归档文件可能已被移动或删除）'),
           h('span', { className: 'wb-mono wb-img-url' }, String(props.src || '')),
         )
       }
@@ -257,6 +365,268 @@ window.__ModuleLoader__.load({
         loading: props.loading,
         onError: () => setFailed(true),
       })
+    }
+
+    // ---- 第 6 步：人工归组的展示零件 -------------------------------------
+
+    /**
+     * 归组动作的失败文案。
+     *
+     * CAPTURE_ALREADY_GROUPED 单独处理：它的 message 只说「已归组」，不告诉用户
+     * 属于哪一页；而 Host 在 error.extra.pageId 里给了答案。把它拼进去，用户
+     * 才能判断「是不是我上次已经点过、只是没看到结果」——这比一句「操作失败」
+     * 有用，也避免用户反复点同一个按钮。
+     */
+    function groupErrorMessage(error) {
+      if (!error) return '操作失败'
+      if (error.code === 'CAPTURE_ALREADY_GROUPED') {
+        const pageId = error.extra && error.extra.pageId
+        return pageId
+          ? `这张照片已经属于某个页面（页面 ID ${pageId}），没有重复归组。列表已刷新。`
+          : '这张照片已经属于某个页面，没有重复归组。列表已刷新。'
+      }
+      return error.message
+    }
+
+    /** 时间戳 → 「2026-11-27 20:49」。手写格式化不用 toLocaleString：后者依赖
+     *  浏览器 locale，同一份数据在不同机器上会显示成不同格式，截图核对时会乱。 */
+    function formatDateTime(value) {
+      if (typeof value !== 'string' || value === '') return '—'
+      const date = new Date(value)
+      if (Number.isNaN(date.getTime())) return value
+      const pad = (n) => String(n).padStart(2, '0')
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
+        `${pad(date.getHours())}:${pad(date.getMinutes())}`
+    }
+
+    /** PageCard → 「数学 · 一年级上」。两边都可能为空（历史数据没分类），
+     *  用 — 占位而不是拼出「undefined」。 */
+    function pageSubjectTerm(card) {
+      const subject = card && card.subject ? card.subject.displayName : '—'
+      const term = card && card.term ? card.term.displayName : '—'
+      return `${subject} · ${term}`
+    }
+
+    /** Capture → 「1024×768 · 1.20 MB · 2026-11-27 20:49」。 */
+    function captureMeta(capture) {
+      if (!capture) return '—'
+      const size = `${capture.width ?? '?'}×${capture.height ?? '?'} · ${formatBytes(capture.byteSize)}`
+      return `${size} · ${formatDateTime(capture.createdAt)}`
+    }
+
+    /**
+     * 待整理区的一条。
+     *
+     * 整条做成 <button>：键盘可 Tab 到、回车即选中；且不会出现「点整条」和
+     * 「点里面的按钮」抢事件的问题（button 里再套 button 是非法嵌套）。
+     * 所以「整理这张」做成条目内部的一段文字提示，而不是第二个按钮。
+     */
+    function PendingCaptureItem(props) {
+      const item = props.capture
+      return h('button', {
+        type: 'button',
+        className: props.active ? 'wb-pending-item wb-pending-item-active' : 'wb-pending-item',
+        onClick: () => props.onSelect(item.id),
+        'aria-pressed': props.active ? 'true' : 'false',
+      },
+        h(SafeImage, {
+          className: 'wb-thumb',
+          errorClassName: 'wb-img-missing wb-thumb-missing',
+          errorText: '无法加载',
+          errorTag: 'span',
+          src: item.originalUrl,
+          alt: item.originalFilename,
+          loading: 'lazy',
+        }),
+        h('span', { className: 'wb-item-main' },
+          h('span', { className: 'wb-item-title wb-mono' }, item.originalFilename),
+          h('span', { className: 'wb-item-meta' }, captureMeta(item)),
+        ),
+        h('span', { className: 'wb-badge' + (props.active ? ' wb-badge-ok' : '') },
+          props.active ? '已选中' : '整理这张'),
+      )
+    }
+
+    /** 归组区左右并排的一侧：标题 + 图 + 元信息。 */
+    function ComparePane(props) {
+      const capture = props.capture
+      return h('div', { className: 'wb-pane' },
+        h('h3', { className: 'wb-pane-title' }, props.title),
+        capture === null
+          ? h('p', { className: 'wb-placeholder' }, props.emptyText || '—')
+          : h(React.Fragment, null,
+            h(SafeImage, {
+              className: 'wb-pane-img',
+              errorClassName: 'wb-img-missing wb-pane-missing',
+              src: capture.originalUrl,
+              alt: capture.originalFilename,
+            }),
+            h('div', { className: 'wb-item-meta wb-mono' }, capture.originalFilename),
+            h('div', { className: 'wb-item-meta' }, captureMeta(capture)),
+          ),
+        props.footer || null,
+      )
+    }
+
+    /** 候选页面列表里的一行。 */
+    function PageCandidateRow(props) {
+      const card = props.card
+      const cover = card.preferredCapture
+      return h('button', {
+        type: 'button',
+        className: props.active ? 'wb-page-row wb-page-row-active' : 'wb-page-row',
+        onClick: () => props.onSelect(card.page.id),
+        'aria-pressed': props.active ? 'true' : 'false',
+      },
+        cover === null
+          ? h('span', { className: 'wb-thumb wb-thumb-empty' }, '无封面')
+          : h(SafeImage, {
+            className: 'wb-thumb',
+            errorClassName: 'wb-img-missing wb-thumb-missing',
+            errorText: '无法加载',
+            errorTag: 'span',
+            src: cover.originalUrl,
+            alt: cover.originalFilename,
+            loading: 'lazy',
+          }),
+        h('span', { className: 'wb-item-main' },
+          h('span', { className: 'wb-item-title' }, pageSubjectTerm(card)),
+          h('span', { className: 'wb-item-meta' },
+            `共 ${card.captureCount} 张照片 · 最近拍摄 ${formatDateTime(card.latestCaptureAt)}`),
+          card.displayCaptureSource === 'fallback'
+            ? h('span', { className: 'wb-cover-tag' }, '临时封面（未选首选）')
+            : null,
+        ),
+        props.active ? h('span', { className: 'wb-badge wb-badge-ok' }, '已选中') : null,
+      )
+    }
+
+    /**
+     * 页面图库的一张卡：一个 Page 一张（不是一张 Capture 一张）。
+     *
+     * 详情（该页全部 Capture）放在卡片内部的局部状态里，而不是提到父组件：
+     * 展开/收起是纯展示状态，提上去会让父组件的 state 跟着页面数量线性增长，
+     * 且一次展开只影响这一张卡。换首选成功后通过 onChanged 通知父组件刷新列表。
+     */
+    function PageGalleryCard(props) {
+      const card = props.card
+      const pageId = card.page.id
+      const [open, setOpen] = React.useState(false)
+      const [detail, setDetail] = React.useState(null)
+      const [detailError, setDetailError] = React.useState(null)
+      const [loadingDetail, setLoadingDetail] = React.useState(false)
+      const [busy, setBusy] = React.useState(false)
+      const [notice, setNotice] = React.useState(null)
+      const cover = card.preferredCapture
+
+      const loadDetail = React.useCallback(async () => {
+        setLoadingDetail(true)
+        setDetailError(null)
+        try {
+          const payload = await getJson(`/pages/detail?page_id=${encodeURIComponent(pageId)}`)
+          setDetail(payload)
+        } catch (error) {
+          setDetail(null)
+          setDetailError(error.message)
+        } finally {
+          setLoadingDetail(false)
+        }
+      }, [pageId])
+
+      // 每次展开都重新读一次：别的标签页/上一轮操作可能已经改过页内成员，
+      // 缓存住会让用户看到过期的照片清单。
+      const toggle = React.useCallback(() => {
+        const next = !open
+        setOpen(next)
+        setNotice(null)
+        if (next) loadDetail()
+      }, [open, loadDetail])
+
+      // onChanged 单独取出来放进依赖：props 对象每次渲染都是新的引用，
+      // 直接依赖 props 会让这个 useCallback 每帧都重建，等于没缓存。
+      const onChanged = props.onChanged
+
+      const makePreferred = React.useCallback(async (captureId) => {
+        setBusy(true)
+        setNotice(null)
+        try {
+          const result = await postJson('/pages/preferred', { page_id: pageId, capture_id: captureId })
+          if (result.ok) {
+            setNotice({ kind: 'ok', text: '已更换首选照片。其他照片仍然保留。' })
+            await loadDetail()
+            onChanged()
+          } else {
+            setNotice({ kind: 'error', text: result.error.message })
+          }
+        } finally {
+          setBusy(false)
+        }
+      }, [pageId, loadDetail, onChanged])
+
+      const captures = detail && Array.isArray(detail.captures) ? detail.captures : []
+      const preferredId = detail ? detail.preferredCaptureId : null
+
+      return h('div', { className: 'wb-page-card' },
+        h('button', {
+          type: 'button',
+          className: 'wb-page-row',
+          onClick: toggle,
+          'aria-expanded': open ? 'true' : 'false',
+        },
+          cover === null
+            ? h('span', { className: 'wb-thumb wb-thumb-empty' }, '无封面')
+            : h(SafeImage, {
+              className: 'wb-thumb',
+              errorClassName: 'wb-img-missing wb-thumb-missing',
+              errorText: '无法加载',
+              errorTag: 'span',
+              src: cover.originalUrl,
+              alt: cover.originalFilename,
+              loading: 'lazy',
+            }),
+          h('span', { className: 'wb-item-main' },
+            h('span', { className: 'wb-item-title' }, pageSubjectTerm(card)),
+            h('span', { className: 'wb-item-meta' }, `共 ${card.captureCount} 张照片`),
+            h('span', { className: 'wb-item-meta' },
+              `最近拍摄 ${formatDateTime(card.latestCaptureAt)} · 状态 ${card.page.status}`),
+            card.displayCaptureSource === 'fallback'
+              ? h('span', { className: 'wb-cover-tag' }, '临时封面（未选首选）')
+              : null,
+          ),
+          h('span', { className: 'wb-badge' }, open ? '收起' : '展开'),
+        ),
+
+        open && h('div', { className: 'wb-detail' },
+          detailError && h('p', { className: 'wb-err' }, `读取页面详情失败：${detailError}`),
+          loadingDetail && h('p', { className: 'wb-placeholder' }, '读取中…'),
+          notice && h('span', {
+            className: notice.kind === 'ok' ? 'wb-ok' : 'wb-err',
+          }, notice.text),
+          captures.length === 0 && !loadingDetail && h('p', { className: 'wb-placeholder' }, '这个页面还没有照片。'),
+          captures.map((capture) => h('div', { className: 'wb-detail-item', key: capture.id },
+            h(SafeImage, {
+              className: 'wb-detail-thumb',
+              errorClassName: 'wb-img-missing wb-detail-missing',
+              errorText: '无法加载',
+              src: capture.originalUrl,
+              alt: capture.originalFilename,
+              loading: 'lazy',
+            }),
+            h('span', { className: 'wb-item-main' },
+              h('span', { className: 'wb-item-meta wb-mono' }, capture.originalFilename),
+              h('span', { className: 'wb-item-meta' }, captureMeta(capture)),
+            ),
+            capture.id === preferredId
+              ? h('span', { className: 'wb-badge wb-badge-ok' }, '当前首选')
+              : h('button', {
+                type: 'button',
+                className: 'wb-btn wb-btn-sm',
+                disabled: busy,
+                onClick: () => makePreferred(capture.id),
+              }, '设为首选'),
+          )),
+        ),
+      )
     }
 
 
@@ -296,6 +666,45 @@ window.__ModuleLoader__.load({
       const [captures, setCaptures] = React.useState(null)
       const [capturesError, setCapturesError] = React.useState(null)
       const [loadingCaptures, setLoadingCaptures] = React.useState(false)
+
+      // ---- 第 6 步：待整理 / 人工归组状态 ---------------------------------
+      // 待整理区单独取 limit=200 的 captures，再在前端按 pageId === null 过滤。
+      // 为什么不给 /captures 加「只看未归组」的参数：那要改 Host 路由与 SQL，
+      // 而这一步的验收范围只有前端；200 条足够覆盖当前数据量，且过滤逻辑
+      // 放在前端也便于在列表里同时看到「已归组」的对照（当前不展示，但数据在）。
+      const [pendingItems, setPendingItems] = React.useState(null)
+      const [pendingError, setPendingError] = React.useState(null)
+      const [loadingPending, setLoadingPending] = React.useState(false)
+      // 当前待归组的 Capture id。只存 id 不存对象：刷新列表后对象会换新引用，
+      // 存对象会拿着一张已经不在列表里的旧快照去比较。
+      const [pendingCaptureId, setPendingCaptureId] = React.useState(null)
+
+      // 候选页面列表 + 筛选条件。filters 是「输入中的值」，query 是「已提交的
+      // 值」——分开存是为了让搜索只在点按钮/回车时生效，避免每敲一个字就发一次
+      // 请求（列表会闪，且用户看到的是中间态的残缺结果）。
+      //
+      // candidateItems 与 galleryItems **故意分成两份状态**：搜索是「找某一页」
+      // 的临时动作，页面图库是「现在有哪些页」的全景。共用一份会让用户搜一次
+      // 之后图库永久只剩搜索结果，看起来像页面丢了。
+      const [candidateItems, setCandidateItems] = React.useState(null)
+      const [candidateError, setCandidateError] = React.useState(null)
+      const [loadingCandidates, setLoadingCandidates] = React.useState(false)
+      const [galleryItems, setGalleryItems] = React.useState(null)
+      const [galleryError, setGalleryError] = React.useState(null)
+      const [loadingGallery, setLoadingGallery] = React.useState(false)
+      const [filterSubject, setFilterSubject] = React.useState('')
+      const [filterTerm, setFilterTerm] = React.useState('')
+      const [filterKeyword, setFilterKeyword] = React.useState('')
+      const [pageQuery, setPageQuery] = React.useState({ subject_code: '', term_code: '', q: '' })
+
+      // 选中的目标 Page（存整张卡：右侧并排图要用它的 preferredCapture）
+      const [selectedPageId, setSelectedPageId] = React.useState(null)
+
+      // 归组动作的进行中标记与结果提示。busy 是**字符串**而不是布尔：三个动作
+      // 各自要有独立的按钮文案（「正在创建…」），布尔会让三个按钮同时变灰
+      // 又看不出是哪个在跑。
+      const [groupBusy, setGroupBusy] = React.useState(null)
+      const [groupNotice, setGroupNotice] = React.useState(null)
 
       const checkHealth = React.useCallback(async () => {
         setLoadingHealth(true)
@@ -342,6 +751,161 @@ window.__ModuleLoader__.load({
       React.useEffect(() => {
         loadDictionaries()
       }, [loadDictionaries])
+
+      /**
+       * 待整理区：GET /captures?limit=200 → 前端过滤 pageId === null。
+       *
+       * 不把「已归组」也算进去：待整理区回答的是「还有哪些照片没归组」，
+       * 混进已归组的会让列表随每次归组变得越来越长，反而看不出还剩什么。
+       */
+      const loadPending = React.useCallback(async () => {
+        setLoadingPending(true)
+        setPendingError(null)
+        try {
+          const payload = await getJson('/captures?limit=200')
+          const items = Array.isArray(payload.items) ? payload.items : []
+          setPendingItems(items.filter((item) => item.pageId === null || item.pageId === undefined))
+        } catch (error) {
+          setPendingItems(null)
+          setPendingError(error.message)
+        } finally {
+          setLoadingPending(false)
+        }
+      }, [])
+
+      /**
+       * 候选页面列表：GET /pages?limit=50（+ 可选的科目/学期/关键词）。
+       *
+       * 这些页面**只用于导航**，不是相似度推荐 —— 响应里根本没有分数，
+       * 排序就是最近导入（Host 的 listPages 固定按 latest_capture_at 倒序）。
+       */
+      const loadCandidates = React.useCallback(async (query) => {
+        setLoadingCandidates(true)
+        setCandidateError(null)
+        try {
+          const params = new URLSearchParams({ limit: '50' })
+          if (query.subject_code !== '') params.set('subject_code', query.subject_code)
+          if (query.term_code !== '') params.set('term_code', query.term_code)
+          if (query.q !== '') params.set('q', query.q)
+          const payload = await getJson(`/pages?${params.toString()}`)
+          setCandidateItems(Array.isArray(payload.items) ? payload.items : [])
+        } catch (error) {
+          setCandidateItems(null)
+          setCandidateError(error.message)
+        } finally {
+          setLoadingCandidates(false)
+        }
+      }, [])
+
+      /**
+       * 页面图库：GET /pages?limit=50（不带筛选条件）。
+       *
+       * 与候选列表分开请求是刻意的：图库要回答「现在一共有哪些页」，
+       * 不能被「归组」区的搜索条件影响。
+       */
+      const loadGallery = React.useCallback(async () => {
+        setLoadingGallery(true)
+        setGalleryError(null)
+        try {
+          const payload = await getJson('/pages?limit=50')
+          setGalleryItems(Array.isArray(payload.items) ? payload.items : [])
+        } catch (error) {
+          setGalleryItems(null)
+          setGalleryError(error.message)
+        } finally {
+          setLoadingGallery(false)
+        }
+      }, [])
+
+      // 首屏把两块新数据都读一次：归组入口如果先要用户点「刷新」才出现，
+      // 就等于把这一步藏起来了。
+      React.useEffect(() => {
+        loadPending()
+      }, [loadPending])
+
+      React.useEffect(() => {
+        loadCandidates(pageQuery)
+      }, [loadCandidates, pageQuery])
+
+      React.useEffect(() => {
+        loadGallery()
+      }, [loadGallery])
+
+      /**
+       * 一次动作成功后要刷的三块数据。
+       *
+       * 为什么不各自刷各自那块：创建新页会同时改变「待整理」（少一条）、
+       * 「候选页面」（多一页）、「页面图库」（多一张卡），漏刷任何一块都会让
+       * 用户看到互相矛盾的两个界面。
+       */
+      const refreshAfterGroup = React.useCallback(async () => {
+        await Promise.all([loadPending(), loadCandidates(pageQuery), loadGallery()])
+      }, [loadPending, loadCandidates, pageQuery, loadGallery])
+
+      /** 搜索：把输入框的值提交成查询条件。 */
+      const submitPageSearch = React.useCallback(() => {
+        setPageQuery({
+          subject_code: filterSubject,
+          term_code: filterTerm,
+          q: filterKeyword.trim(),
+        })
+      }, [filterSubject, filterTerm, filterKeyword])
+
+      /**
+       * 「不同页，创建新页面」：POST /pages {capture_id}。
+       *
+       * 无论选中了哪个候选 Page 都可以用 —— 这正是本步的核心语义：
+       * 系统不做自动判断，用户说不同页就新建，说同一页就附加。
+       */
+      const createNewPage = React.useCallback(async () => {
+        if (pendingCaptureId === null || groupBusy !== null) return
+        setGroupBusy('create')
+        setGroupNotice(null)
+        try {
+          const result = await postJson('/pages', { capture_id: pendingCaptureId })
+          if (result.ok) {
+            setGroupNotice({ kind: 'ok', text: '已创建新页面，这张照片已放入该页面。' })
+            // 这张照片已经归组，不再属于待整理；清空选中，避免用户对着
+            // 一条已经不存在的条目继续操作
+            setPendingCaptureId(null)
+            setSelectedPageId(null)
+            await refreshAfterGroup()
+          } else {
+            setGroupNotice({ kind: 'error', text: groupErrorMessage(result.error) })
+            if (result.error.code === 'CAPTURE_ALREADY_GROUPED') await refreshAfterGroup()
+          }
+        } finally {
+          setGroupBusy(null)
+        }
+      }, [pendingCaptureId, groupBusy, refreshAfterGroup])
+
+      /** 「同一页，添加为另一张照片」：POST /pages/attach {page_id, capture_id}。 */
+      const attachToPage = React.useCallback(async () => {
+        if (pendingCaptureId === null || selectedPageId === null || groupBusy !== null) return
+        setGroupBusy('attach')
+        setGroupNotice(null)
+        try {
+          const result = await postJson('/pages/attach', {
+            page_id: selectedPageId,
+            capture_id: pendingCaptureId,
+          })
+          if (result.ok) {
+            setGroupNotice({ kind: 'ok', text: '已添加为该页面的另一张照片。原照片全部保留。' })
+            setPendingCaptureId(null)
+            await refreshAfterGroup()
+          } else {
+            setGroupNotice({ kind: 'error', text: groupErrorMessage(result.error) })
+            // 已经属于某页是真实状态而不是临时故障：刷新让用户看到真实归属，
+            // 绝不能让界面停在「看起来还没归组」的样子
+            if (result.error.code === 'CAPTURE_ALREADY_GROUPED') {
+              setPendingCaptureId(null)
+              await refreshAfterGroup()
+            }
+          }
+        } finally {
+          setGroupBusy(null)
+        }
+      }, [pendingCaptureId, selectedPageId, groupBusy, refreshAfterGroup])
 
       // 字典到了之后给下拉框一个默认值：第一项即可，减少一次点击。
       React.useEffect(() => {
@@ -566,9 +1130,13 @@ window.__ModuleLoader__.load({
           return current.filter((_, position) => !processedPositions.has(position))
         })
 
-        // 有任何一个文件落库了就刷新图库，新图立刻可见
-        if (imported > 0 || duplicate > 0) loadCaptures()
-      }, [selected, subjectCode, termCode, loadCaptures])
+        // 有任何一个文件落库了就刷新图库与待整理：新导入的照片 pageId 为 null，
+        // 它必须立刻出现在「待整理」里，否则用户会以为导入没成功。
+        if (imported > 0 || duplicate > 0) {
+          loadCaptures()
+          loadPending()
+        }
+      }, [selected, subjectCode, termCode, loadCaptures, loadPending])
 
       /**
        * 只重试某一条失败的文件（把队列缩成那一条再跑一遍）。
@@ -593,6 +1161,30 @@ window.__ModuleLoader__.load({
       }, [])
 
       const rows = health && health.ok ? Object.entries(health.rowCounts || {}) : []
+
+      // ---- 第 6 步：渲染用的派生值 ---------------------------------------
+      // 选中项每次都从当前列表里重新找，不缓存对象：刷新后如果这张已经归组，
+      // 查找自然得到 null，界面就不会继续显示一条已不存在于待整理的对照图。
+      const pendingCapture = pendingItems === null
+        ? null
+        : pendingItems.find((item) => item.id === pendingCaptureId) || null
+      // 选中项在候选列表里找不到时再查一遍图库列表：用户可能先选了某页、
+      // 再改搜索条件把它筛掉，这时右侧对照图不应该突然变空。
+      const selectedPageCard = (() => {
+        if (selectedPageId === null) return null
+        const pools = [candidateItems, galleryItems]
+        for (const pool of pools) {
+          if (pool === null) continue
+          const hit = pool.find((card) => card.page.id === selectedPageId)
+          if (hit) return hit
+        }
+        return null
+      })()
+      // 科目/学期下拉的数据来自已加载的字典；字典没到就先给空数组，
+      // 筛选框会只剩「全部」一项，不会把筛选条件卡成不可用。
+      const dictSubjects = dict && Array.isArray(dict.subjects) ? dict.subjects : []
+      const dictTerms = dict && Array.isArray(dict.terms) ? dict.terms : []
+      const groupDisabled = groupBusy !== null
 
       return h('div', { className: 'wb-page' },
         h('style', null, CSS),
@@ -787,6 +1379,215 @@ window.__ModuleLoader__.load({
             '每个文件的结果独立显示：以前导入过的显示「已存在（未复制）」，不会复制第二份。'),
         ),
 
+        // 卡片 C：待整理（第 6 步入口 —— 未归组的 Capture）
+        h('section', { className: 'wb-card' },
+          h('div', { className: 'wb-card-head' },
+            h('h2', { className: 'wb-card-title' }, '待整理'),
+            h('button', {
+              className: 'wb-btn',
+              type: 'button',
+              onClick: loadPending,
+              disabled: loadingPending,
+            }, loadingPending ? '读取中…' : '刷新'),
+          ),
+
+          pendingError && h('p', { className: 'wb-err' }, `读取待整理照片失败：${pendingError}`),
+
+          pendingItems === null && !pendingError && h('p', { className: 'wb-placeholder' }, '读取中…'),
+
+          pendingItems !== null && pendingItems.length === 0 &&
+            h('p', { className: 'wb-placeholder' }, '没有待整理的照片。新导入的照片会先出现在这里。'),
+
+          pendingItems !== null && pendingItems.length > 0 && h('div', { className: 'wb-pending-list' },
+            pendingItems.map((item) => h(PendingCaptureItem, {
+              key: item.id,
+              capture: item,
+              active: item.id === pendingCaptureId,
+              onSelect: (captureId) => {
+                setPendingCaptureId(captureId)
+                setGroupNotice(null)
+              },
+            })),
+          ),
+
+          h('p', { className: 'wb-note' },
+            '这里只显示还没有归入任何页面的照片。选中一张后，下面的「归组」区会出现。'),
+        ),
+
+        // 归组结果提示放在卡片**外面**：创建/附加成功后这张照片已经不在待整理里，
+        // 整个「归组」卡片会随之卸载 —— 提示若挂在卡片内部，用户就看不到
+        // 「已创建新页面，这张照片已放入该页面。」这句唯一的成功反馈了。
+        groupNotice && h('span', {
+          className: 'wb-group-notice ' + (groupNotice.kind === 'ok' ? 'wb-ok' : 'wb-err'),
+        }, groupNotice.text),
+
+        // 卡片 D：人工归组（选中待整理照片后才出现）
+        //
+        // 为什么整张卡在没选中时**不渲染**而不是渲染成灰的：这一步的全部内容
+        // 都是「拿 A 和 B 比」，没有 A 就没有可比的东西，先给一个空壳只会
+        // 让用户以为功能坏了。
+        pendingCapture !== null && h('section', { className: 'wb-card' },
+          h('div', { className: 'wb-card-head' },
+            h('h2', { className: 'wb-card-title' }, '归组'),
+            h('button', {
+              className: 'wb-btn',
+              type: 'button',
+              disabled: groupDisabled,
+              onClick: () => {
+                setPendingCaptureId(null)
+                setSelectedPageId(null)
+                setGroupNotice(null)
+              },
+            }, '取消选中'),
+          ),
+
+          h('div', { className: 'wb-split' },
+            h(ComparePane, {
+              title: '这张照片（待归组）',
+              capture: pendingCapture,
+            }),
+            h(ComparePane, {
+              title: '选中的页面',
+              capture: selectedPageCard ? selectedPageCard.preferredCapture : null,
+              // 两种「没有图」的原因不同：没选页面是用户还没动作，选了页面但没封面
+              // 是那一页本身还没有照片。用同一句话会把后一种说成前一种。
+              emptyText: selectedPageCard
+                ? '这个页面还没有可显示的照片。'
+                : '从下面选一个页面来比较，或者直接创建新页面',
+              footer: selectedPageCard
+                ? h('div', { className: 'wb-item-meta' },
+                  `${pageSubjectTerm(selectedPageCard)} · 共 ${selectedPageCard.captureCount} 张照片`)
+                : null,
+            }),
+          ),
+
+          h('div', { className: 'wb-actions' },
+            h('button', {
+              className: 'wb-btn wb-btn-primary',
+              type: 'button',
+              // 未选页面时「同一页」没有目标可加，必须 disabled；
+              // 而「不同页」永远是合法动作（新建），所以始终可用。
+              disabled: groupDisabled || selectedPageId === null,
+              onClick: attachToPage,
+            }, groupBusy === 'attach' ? '正在添加…' : '同一页，添加为另一张照片'),
+
+            h('button', {
+              className: 'wb-btn',
+              type: 'button',
+              disabled: groupDisabled,
+              onClick: createNewPage,
+            }, groupBusy === 'create' ? '正在创建…' : '不同页，创建新页面'),
+          ),
+
+          h('p', { className: 'wb-note' },
+            '相似度不做自动判断：系统不会自动合并任何照片，全部由你确认。'),
+
+          // 手动搜索：关键词 + 科目 + 学期。只在提交时发请求。
+          h('div', { className: 'wb-toolbar' },
+            h('div', { className: 'wb-field' },
+              h('label', { className: 'wb-field-label', htmlFor: 'wb-page-q' }, '关键词'),
+              h('input', {
+                id: 'wb-page-q',
+                className: 'wb-input',
+                type: 'search',
+                value: filterKeyword,
+                placeholder: '资料标题 / 原文件名',
+                disabled: groupDisabled,
+                onChange: (event) => setFilterKeyword(event.target.value),
+                onKeyDown: (event) => {
+                  if (event.key === 'Enter') submitPageSearch()
+                },
+              }),
+            ),
+
+            h('div', { className: 'wb-field' },
+              h('label', { className: 'wb-field-label', htmlFor: 'wb-page-subject' }, '科目'),
+              h('select', {
+                id: 'wb-page-subject',
+                className: 'wb-select',
+                value: filterSubject,
+                disabled: groupDisabled,
+                onChange: (event) => setFilterSubject(event.target.value),
+              },
+                h('option', { value: '' }, '全部科目'),
+                dictSubjects.map((s) => h('option', { key: s.code, value: s.code }, s.display_name)),
+              ),
+            ),
+
+            h('div', { className: 'wb-field' },
+              h('label', { className: 'wb-field-label', htmlFor: 'wb-page-term' }, '学期'),
+              h('select', {
+                id: 'wb-page-term',
+                className: 'wb-select',
+                value: filterTerm,
+                disabled: groupDisabled,
+                onChange: (event) => setFilterTerm(event.target.value),
+              },
+                h('option', { value: '' }, '全部学期'),
+                dictTerms.map((t) => h('option', { key: t.code, value: t.code }, t.display_name)),
+              ),
+            ),
+
+            h('button', {
+              className: 'wb-btn',
+              type: 'button',
+              disabled: loadingCandidates || groupDisabled,
+              onClick: submitPageSearch,
+            }, loadingCandidates ? '搜索中…' : '搜索'),
+          ),
+
+          candidateError && h('p', { className: 'wb-err' }, `读取页面列表失败：${candidateError}`),
+
+          // 这句话必须紧贴候选列表：列表按最近导入排序，看起来很像「推荐」，
+          // 不写明就一定会被当成相似度推荐（本步已确认不做自动判断）。
+          h('p', { className: 'wb-note' },
+            '下面是最近导入的页面，仅用于导航，不是内容相似度推荐。'),
+
+          candidateItems !== null && candidateItems.length === 0 &&
+            h('p', { className: 'wb-placeholder' }, '没有找到匹配的页面。可以直接创建新页面。'),
+
+          candidateItems !== null && candidateItems.length > 0 && h('div', { className: 'wb-page-list' },
+            candidateItems.map((card) => h(PageCandidateRow, {
+              key: card.page.id,
+              card,
+              active: card.page.id === selectedPageId,
+              onSelect: (pageId) => setSelectedPageId(pageId),
+            })),
+          ),
+        ),
+
+        // 卡片 E：页面图库（一个 Page 一张卡，不是一张 Capture 一张）
+        h('section', { className: 'wb-card' },
+          h('div', { className: 'wb-card-head' },
+            h('h2', { className: 'wb-card-title' }, '页面图库'),
+            h('button', {
+              className: 'wb-btn',
+              type: 'button',
+              onClick: loadGallery,
+              disabled: loadingGallery,
+            }, loadingGallery ? '读取中…' : '刷新'),
+          ),
+
+          galleryError && h('p', { className: 'wb-err' }, `读取页面失败：${galleryError}`),
+
+          galleryItems === null && !galleryError && h('p', { className: 'wb-placeholder' }, '读取中…'),
+
+          galleryItems !== null && galleryItems.length === 0 &&
+            h('p', { className: 'wb-placeholder' }, '还没有页面。先导入照片，再在「待整理」里归组。'),
+
+          galleryItems !== null && galleryItems.length > 0 && h('div', { className: 'wb-page-list' },
+            galleryItems.map((card) => h(PageGalleryCard, {
+              key: card.page.id,
+              card,
+              // 换首选后要刷新：封面可能变了，而封面来自列表数据
+              onChanged: loadGallery,
+            })),
+          ),
+
+          h('p', { className: 'wb-note' },
+            '一个页面可以有多张照片（同一张纸拍了两次）。展开页面可以查看全部照片并更换首选。'),
+        ),
+
         // 卡片 B：图库
         h('section', { className: 'wb-card' },
           h('div', { className: 'wb-card-head' },
@@ -924,8 +1725,9 @@ window.__ModuleLoader__.load({
 
         h('p', { className: 'wb-note' },
           '本轮已实现：批量导入（多选文件 → 逐个 SHA-256 查重 → 复制原件 → 登记 Capture → 图库可见），' +
-          '重复文件显示「已存在（未复制）」且不会产生第二份原件。' +
-          '视觉归组、标准化与复习留到后续步骤。',
+          '重复文件显示「已存在（未复制）」且不会产生第二份原件；以及第 6 步的人工归组' +
+          '（待整理 → 同一页附加 / 不同页新建 → 页面图库更换首选）。' +
+          '标准化与复习留到后续步骤。',
         ),
       )
     }
